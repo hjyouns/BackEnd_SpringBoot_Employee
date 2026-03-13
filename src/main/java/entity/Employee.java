@@ -1,4 +1,4 @@
-package entity;
+package com.employee.api.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,6 +28,6 @@ public class Employee {
     private String email;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id")
-    private Department department;
+    @JoinColumn(name = "department_id", nullable = false)
+    private com.employee.api.entity.Department department;
 }
