@@ -1,6 +1,6 @@
 package com.employee.api.exception.advice;
 
-import exception.advice.ErrorObject;
+import com.employee.api.exception.ResourceNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -16,15 +16,15 @@ import java.util.Map;
 @Slf4j
 public class DefaultExceptionAdvice {
 
-    @ExceptionHandler(com.employee.api.exception.ResourceNotFoundException.class)
-    public ResponseEntity<ErrorObject> handleResourceNotFoundException(com.employee.api.exception.ResourceNotFoundException ex) {
-        ErrorObject errorObject = new ErrorObject();
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<com.employee.api.exception.advice.ErrorObject> handleResourceNotFoundException(ResourceNotFoundException ex) {
+        com.employee.api.exception.advice.ErrorObject errorObject = new com.employee.api.exception.advice.ErrorObject();
         errorObject.setStatusCode(ex.getHttpStatus().value());
         errorObject.setMessage(ex.getMessage());
 
         log.error(ex.getMessage(), ex);
 
-        return new ResponseEntity<ErrorObject>(errorObject, HttpStatusCode.valueOf(ex.getHttpStatus().value()));
+        return new ResponseEntity<com.employee.api.exception.advice.ErrorObject>(errorObject, HttpStatusCode.valueOf(ex.getHttpStatus().value()));
     }
 
     /*
@@ -51,13 +51,13 @@ public class DefaultExceptionAdvice {
     }
 
     @ExceptionHandler(RuntimeException.class)
-    protected ResponseEntity<ErrorObject> handleException(RuntimeException e) {
-        ErrorObject errorObject = new ErrorObject();
+    protected ResponseEntity<com.employee.api.exception.advice.ErrorObject> handleException(RuntimeException e) {
+        com.employee.api.exception.advice.ErrorObject errorObject = new com.employee.api.exception.advice.ErrorObject();
         errorObject.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
         errorObject.setMessage(e.getMessage());
 
         log.error(e.getMessage(), e);
 
-        return new ResponseEntity<ErrorObject>(errorObject, HttpStatusCode.valueOf(500));
+        return new ResponseEntity<com.employee.api.exception.advice.ErrorObject>(errorObject, HttpStatusCode.valueOf(500));
     }
 }
