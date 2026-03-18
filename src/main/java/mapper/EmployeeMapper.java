@@ -22,7 +22,7 @@ public class EmployeeMapper {
                 .firstName(employee.getFirstName())
                 .lastName(employee.getLastName())
                 .email(employee.getEmail())
-                .departmentDto(com.employee.api.mapper.DepartmentMapper.mapToDepartmentDto(employee.getDepartment()))
+                .departmentDto(DepartmentMapper.mapToDepartmentDto(employee.getDepartment()))
                 .build();
     }
 
